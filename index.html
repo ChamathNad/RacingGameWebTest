@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity Web Player | RacingGame</title>
+    <title>Unity WebGL Player | RacingGame</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
     <link rel="manifest" href="manifest.webmanifest">
@@ -25,6 +25,7 @@
           navigator.serviceWorker.register("ServiceWorker.js");
         }
       });
+	window.unityInstance = null;
 
       var container = document.querySelector("#unity-container");
       var canvas = document.querySelector("#unity-canvas");
@@ -57,23 +58,16 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/43cb4e15867f0f0250b73f0f2ab26a79.loader.js";
+      var loaderUrl = buildUrl + "/5729b23cdbdbe256fcbbec8f85bbc800.loader.js";
       var config = {
-        arguments: [],
-        dataUrl: buildUrl + "/867204efe538f7ecab4c4c4f332993d3.data.unityweb",
+        dataUrl: buildUrl + "/bf747c2c582c2b3c9832294860521757.data.unityweb",
         frameworkUrl: buildUrl + "/9aeb9afa5c32559e0ea5e04fb6390585.framework.js.unityweb",
-        codeUrl: buildUrl + "/1c04cafea40eff27e2db5f29a4586278.wasm.unityweb",
+        codeUrl: buildUrl + "/7028db2b81a166015f276a64c110b196.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "CForgeGames",
         productName: "RacingGame",
-        productVersion: "0.1.0",
+        productVersion: "0.5.3",
         showBanner: unityShowBanner,
-        // errorHandler: function(err, url, line) {
-        //    alert("error " + err + " occurred at line " + line);
-        //    // Return 'true' if you handled this error and don't want Unity
-        //    // to process it further, 'false' otherwise.
-        //    return true;
-        // },
       };
 
       // By default Unity keeps WebGL canvas render target size matched with
@@ -91,7 +85,6 @@
         document.getElementsByTagName('head')[0].appendChild(meta);
       }
 
-
       loadingBar.style.display = "block";
 
       var script = document.createElement("script");
@@ -101,6 +94,7 @@
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
           loadingBar.style.display = "none";
+	  window.unityInstance = unityInstance;
         }).catch((message) => {
           alert(message);
         });
